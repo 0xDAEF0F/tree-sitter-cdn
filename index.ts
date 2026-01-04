@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 const app = new Hono();
-const BASE_DIR = "/Users/ale/parser-cdn";
+const BASE_DIR = process.cwd();
 
 app.use("*", cors());
 
