@@ -1,30 +1,53 @@
-; TOML highlight queries
+; Properties
+;-----------
+
+(bare_key) @type
+
+(quoted_key) @string
+
+(pair
+  (bare_key)) @property
+
+(pair
+  (dotted_key
+    (bare_key) @property))
+
+; Literals
+;---------
+
+(boolean) @boolean
 
 (comment) @comment
 
 (string) @string
-(integer) @number
-(float) @number
-(boolean) @constant.builtin
 
-(bare_key) @property
-(quoted_key) @property
+[
+  (integer)
+  (float)
+] @number
 
-(table (bare_key) @type)
-(table (quoted_key) @type)
-(table (dotted_key (bare_key) @type))
+[
+  (offset_date_time)
+  (local_date_time)
+  (local_date)
+  (local_time)
+] @string.special
 
-(array_table (bare_key) @type)
-(array_table (quoted_key) @type)
-(array_table (dotted_key (bare_key) @type))
+; Punctuation
+;------------
 
-"[" @punctuation.bracket
-"]" @punctuation.bracket
-"[[" @punctuation.bracket
-"]]" @punctuation.bracket
-"{" @punctuation.bracket
-"}" @punctuation.bracket
+[
+  "."
+  ","
+] @punctuation.delimiter
 
 "=" @operator
-"." @punctuation.delimiter
-"," @punctuation.delimiter
+
+[
+  "["
+  "]"
+  "[["
+  "]]"
+  "{"
+  "}"
+] @punctuation.bracket

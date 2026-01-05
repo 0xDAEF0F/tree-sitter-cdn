@@ -1,22 +1,16 @@
-; JSON syntax highlighting
-
-; Property keys
 (pair
-  key: (string) @property)
+  key: (_) @string.special.key)
 
-; String values
 (string) @string
 
-; Numbers
 (number) @number
 
-; Booleans
-[(true) (false)] @constant.builtin
+[
+  (null)
+  (true)
+  (false)
+] @constant.builtin
 
-; Null
-(null) @constant.builtin
+(escape_sequence) @escape
 
-; Punctuation
-["{" "}"] @punctuation.bracket
-["[" "]"] @punctuation.bracket
-[":" ","] @punctuation.delimiter
+(comment) @comment

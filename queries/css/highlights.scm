@@ -1,50 +1,76 @@
-; CSS syntax highlighting
-
-; Selectors
-(tag_name) @tag
-(class_name) @type
-(id_name) @constant
-(attribute_name) @attribute
-
-; Properties
-(property_name) @property
-
-; Values
-(plain_value) @string
-(color_value) @constant
-(integer_value) @number
-(float_value) @number
-
-; Strings
-(string_value) @string
-
-; Keywords
-(important) @keyword
-
-; Units
-(unit) @type
-
-; At-rules
-(at_keyword) @keyword
-(keyword_query) @keyword
-
-; Pseudo-classes and pseudo-elements
-(pseudo_class_selector
-  (class_name) @function)
-(pseudo_element_selector
-  (tag_name) @function)
-
-; Functions
-(function_name) @function
-
-; Comments
 (comment) @comment
 
-; Punctuation
-["{" "}"] @punctuation.bracket
-["(" ")"] @punctuation.bracket
-["[" "]"] @punctuation.bracket
-[":" ";" ","] @punctuation.delimiter
+(tag_name) @tag
+(nesting_selector) @tag
+(universal_selector) @tag
 
-; Operators
-[">" "~" "+" "*"] @operator
+"~" @operator
+">" @operator
+"+" @operator
+"-" @operator
+"*" @operator
+"/" @operator
+"=" @operator
+"^=" @operator
+"|=" @operator
+"~=" @operator
+"$=" @operator
+"*=" @operator
+
+"and" @operator
+"or" @operator
+"not" @operator
+"only" @operator
+
+(attribute_selector (plain_value) @string)
+
+((property_name) @variable
+ (#match? @variable "^--"))
+((plain_value) @variable
+ (#match? @variable "^--"))
+
+(class_name) @property
+(id_name) @property
+(namespace_name) @property
+(property_name) @property
+(feature_name) @property
+
+(pseudo_element_selector (tag_name) @attribute)
+(pseudo_class_selector (class_name) @attribute)
+(attribute_name) @attribute
+
+(function_name) @function
+
+"@media" @keyword
+"@import" @keyword
+"@charset" @keyword
+"@namespace" @keyword
+"@supports" @keyword
+"@keyframes" @keyword
+(at_keyword) @keyword
+(to) @keyword
+(from) @keyword
+(important) @keyword
+
+(string_value) @string
+(color_value) @string.special
+
+(integer_value) @number
+(float_value) @number
+(unit) @type
+
+[
+  "#"
+  ","
+  "."
+  ":"
+  "::"
+  ";"
+] @punctuation.delimiter
+
+[
+  "{"
+  ")"
+  "("
+  "}"
+] @punctuation.bracket
