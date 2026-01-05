@@ -124,10 +124,9 @@
 	(unsigned_literal)
 ] @number
 
-[
-	(null_literal) ; should be highlighted the same as booleans
-	(boolean_literal)
-] @boolean
+(boolean_literal) @boolean
+
+"null" @constant.builtin
 
 (character_literal) @character
 

@@ -37,10 +37,26 @@ app.get("/queries/*", async (c) => {
   return new Response(file);
 });
 
-// Also serve at /tree-sitter/* for local path compatibility
-app.get("/tree-sitter/*", async (c) => {
-  const path = c.req.path;
-  console.log(`[CDN] Request: ${path}`);
+// Serve /tree-sitter/parsers/* from /parsers/* for local path compatibility
+app.get("/tree-sitter/parsers/*", async (c) => {
+  const path = c.req.path.replace("/tree-sitter/parsers/", "/parsers/");
+  console.log(`[CDN] Request: ${c.req.path} -> ${path}`);
+  const filePath = `${BASE_DIR}${path}`;
+  const file = Bun.file(filePath);
+
+  if (!(await file.exists())) {
+    console.log(`[CDN] Not found: ${filePath}`);
+    return c.text("Not found", 404);
+  }
+
+  console.log(`[CDN] Serving: ${filePath}`);
+  return new Response(file);
+});
+
+// Serve /tree-sitter/queries/* from /queries/* for local path compatibility
+app.get("/tree-sitter/queries/*", async (c) => {
+  const path = c.req.path.replace("/tree-sitter/queries/", "/queries/");
+  console.log(`[CDN] Request: ${c.req.path} -> ${path}`);
   const filePath = `${BASE_DIR}${path}`;
   const file = Bun.file(filePath);
 
